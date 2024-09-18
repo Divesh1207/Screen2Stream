@@ -26,7 +26,7 @@ export const uploadImage = async (formData) => {
 // Search Anime API Call
 export const searchAnime = async (imageUrl) => {
   try {
-    const response = await api.post('/searchanime', { imageUrl });
+    const response = await api.post('/searchanim', { imageUrl });
     return response.data;
   } catch (error) {
     console.error('Error searching anime:', error);
