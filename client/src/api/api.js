@@ -1,12 +1,11 @@
 
 import axios from 'axios';
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL, // Dynamically set the base URL
-  });
+
+
 // Upload Image API Call
 export const uploadImage = async (formData) => {
     try {
-        const response = await axios.post('/api/upload', formData, {
+        const response = await axios.post('api/api/upload', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -21,7 +20,7 @@ export const uploadImage = async (formData) => {
 // Search Anime API Call
 export const searchAnime = async (imageUrl) => {
     try {
-        const response = await axios.post('/api/searchanime', { imageUrl });
+        const response = await axios.post('api/api/searchanime', { imageUrl });
         return response.data;
     } catch (error) {
         console.error('Error searching anime:', error);
@@ -32,7 +31,7 @@ export const searchAnime = async (imageUrl) => {
 // AniList Query API Call
 export const queryAniList = async (requestBody) => {
     try {
-        const response = await axios.post('/api/anilistquery', requestBody);
+        const response = await axios.post('api/api/anilistquery', requestBody);
         return response.data;
     } catch (error) {
         console.error('Error querying AniList:', error);
@@ -43,7 +42,7 @@ export const queryAniList = async (requestBody) => {
 // Streaming Links API Call
 export const fetchStreamingLinks = async (romaji, english) => {
     try {
-        const response = await axios.get('/api/streaminglinks', {
+        const response = await axios.get('api/api/streaminglinks', {
             params: { romaji, english }
         });
         return response.data;
