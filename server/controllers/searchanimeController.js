@@ -1,62 +1,57 @@
 
 
+
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import FormData from 'form-data';
-import Screenshot from '../models/Screenshot.js';
 import dotenv from 'dotenv';
+import Screenshot from '../models/Screenshot.js';
+
 dotenv.config();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Constants for retry logic
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 5000;
 
 // Helper function for delaying the retry
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const MAX_RETRIES = 3;  // Maximum number of retry attempts
-const RETRY_DELAY = 5000;  // Delay between retries (in milliseconds)
-
 export const searchAnime = async (req, res) => {
+  const { imageUrl } = req.body;
+
+  if (!imageUrl) {
+    console.error('No image URL provided');
+    return res.status(400).json({ message: 'No image URL provided' });
+  }
+
+  console.log('Received image URL for search:', imageUrl);
+
   let retries = 0;
   let success = false;
 
   while (retries < MAX_RETRIES && !success) {
     try {
-      const { imageUrl } = req.body;
-      if (!imageUrl || typeof imageUrl !== 'string') {
-        return res.status(400).json({ message: 'Invalid or missing imageUrl' });
-      }
+      console.log(`Attempt ${retries + 1} to search anime`);
 
-      const fileName = path.basename(new URL(imageUrl).pathname);
-      const imagePath = path.join(__dirname, '../uploads', fileName);
-
-      if (!fs.existsSync(imagePath)) {
-        return res.status(404).json({ message: 'Image file not found' });
-      }
-
-      const formData = new FormData();
-      formData.append('file', fs.createReadStream(imagePath));
-
-      const sauceNaoResponse = await axios.post(process.env.NAO_API_URL, formData, {
-        headers: {
-          ...formData.getHeaders(),
-        },
+      console.log('Preparing request for SauceNAO API');
+      const sauceNaoResponse = await axios.get(process.env.NAO_API_URL, {
         params: {
           api_key: process.env.NAO_API_KEY,
+          url: imageUrl,
           output_type: 2,
           numres: 10,
           db: 999,
         },
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity,
       });
 
+      console.log('Received response from SauceNAO API');
       const sauceData = sauceNaoResponse.data;
       if (!sauceData || !sauceData.results || sauceData.results.length === 0) {
+        console.log('No anime found in SauceNAO results');
         return res.status(404).json({ message: 'No anime found on SearchAnime' });
       }
 
+      console.log('Processing SauceNAO results');
       const sauceResults = sauceData.results.map(result => ({
         similarity: result.header.similarity,
         source: result.data.source || 'unknown',
@@ -67,20 +62,23 @@ export const searchAnime = async (req, res) => {
         anime_title: result.data.title || 'Unknown',
       }));
 
+      console.log('Updating database with search results');
+      const screenshotId = new URL(imageUrl).pathname.split('/').pop();
       const screenshot = await Screenshot.findOneAndUpdate(
-        { screenshotId: path.basename(imagePath) },
+        { screenshotId: screenshotId },
         { sauceNaoData: sauceResults },
         { new: true, upsert: true }
       );
+      console.log('Database updated with search results');
 
       res.status(200).json({ sauceNao: sauceResults });
-      success = true;  // Mark the operation as successful if no errors
-
+      console.log('Search results sent to client');
+      success = true;
     } catch (error) {
       if (error.response && error.response.status === 429) {
         console.log('Rate limit hit, retrying after delay...');
         retries += 1;
-        await delay(RETRY_DELAY);  // Wait before retrying
+        await delay(RETRY_DELAY);
       } else {
         console.error('Error in searchAnime function:', error);
         return res.status(500).json({ message: 'Error processing request', error: error.message });
@@ -89,6 +87,7 @@ export const searchAnime = async (req, res) => {
   }
 
   if (!success) {
+    console.log('Max retries reached. Unable to complete the search.');
     return res.status(429).json({ message: 'Too many requests. Please try again later.' });
   }
 };
