@@ -26,7 +26,7 @@ const DoodleEffect = ({ percentage }) => {  // Accept percentage as prop
         </div>
 
         <motion.p
-  className="text-white text-xl sm:text-sm md:text-xl font-semibold mt-4 text-center shadow-md px-4 py-2 rounded-lg"
+  className="text-white sm:text-sm md:text-xl font-semibold mt-4 text-center shadow-md px-4 py-2 rounded-lg"
   animate={{ opacity: [0, 1], y: [10, 0], scale: [0.95, 1] }}
   transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 150 }}
 >

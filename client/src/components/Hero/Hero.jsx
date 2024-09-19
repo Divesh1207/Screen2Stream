@@ -205,8 +205,8 @@ const successfulTitle=aniListData.successfulTitle
         </form>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12 lg:mb-16">
           {[ 
-            { icon: Search, text: 'Advanced AI Recognition', color: 'text-green-400', tooltip: 'Highly accurate AI-powered image search' },
-            { icon: Zap, text: 'Lightning-Fast Results', color: 'text-yellow-400', tooltip: 'Get results in seconds' },
+            { icon: Search, text: 'Advanced AI Recognition', color: 'text-green-400', tooltip: 'Highly accurate image search' },
+            { icon: Zap, text: 'Lightning-Fast Results', color: 'text-yellow-400', tooltip: 'Get results in few seconds' },
             { icon: Database, text: 'Extensive Anime Database', color: 'text-blue-400', tooltip: 'Access a vast library of anime scenes' },
             { icon: Film, text: 'Scene Detection', color: 'text-purple-400', tooltip: 'Identify specific anime scenes with precision' },
             { icon: Clock, text: 'Timestamp Matching', color: 'text-pink-400', tooltip: 'Find the exact moment in the episode' },
@@ -275,7 +275,7 @@ const successfulTitle=aniListData.successfulTitle
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[ 
               { icon: Upload, title: 'Upload Image', description: 'Choose a scene from an anime episode.' },
-              { icon: Search, title: 'AI Processes Scene', description: 'Our AI system identifies the anime from the image.' },
+              { icon: Search, title: 'Processes Scene', description: 'It identifies the anime from the image.' },
               { icon: Film, title: 'Get Results', description: 'Receive detailed info about the anime and streaming links.' }
             ].map(({ icon: Icon, title, description }, index) => (
               <div key={index} className="flex flex-col items-center text-center bg-gray-800 bg-opacity-60 p-6 rounded-lg hover:bg-opacity-80 transition">
