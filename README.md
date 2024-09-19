@@ -39,6 +39,13 @@ https://github.com/user-attachments/assets/bd5f113e-2e7e-4c7c-9e10-4e358bffd82d
 
 Watch the Demo
 
+## About The Project
+
+### Screen 2 Stream 🎬🔍
+
+Screen 2 Stream is a full-stack web application designed to revolutionize the way anime fans find information and streaming links for their favorite scenes. By simply uploading a screenshot from an anime, users can quickly access detailed information about the series and find the best streaming links available. 🚀
+
+
 ## Features ✨
 
 - **Image Recognition** 📸: Upload screenshots from anime scenes to identify the series and episode.
@@ -47,11 +54,6 @@ Watch the Demo
 - **Responsive Design** 📱💻: Enjoy a seamless experience across desktop and mobile devices.
 
 
-## About The Project
-
-### Screen 2 Stream 🎬🔍
-
-Screen 2 Stream is a full-stack web application designed to revolutionize the way anime fans find information and streaming links for their favorite scenes. By simply uploading a screenshot from an anime, users can quickly access detailed information about the series and find the best streaming links available. 🚀
 
 ## Tech stack 🛠️
 
