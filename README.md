@@ -20,12 +20,12 @@
 🕷️ **[Puppeteer](https://pptr.dev)**
 
 ## Table of Contents
-- [Project Demo](#project-demo)
+- [Project Demo](#project-demo-)
 - [About The Project](#about-the-project) 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Usage](#usage)
-- [License](#license)
+- [Features](#features-)
+- [Tech Stack](#tech-stack-)
+- [Usage](#usage-)
+- [License](#license-)
 
 ## Project Demo 🎥
 
