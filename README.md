@@ -23,7 +23,7 @@
 - [Project Demo](#project-demo-)
 - [About The Project](#about-the-project) 
 - [Features](#features-)
-- [Tech Stack](#tech-stack-)
+- [Tech stack](#tech-stack)
 - [Usage](#usage-)
 - [License](#license-)
 
@@ -53,7 +53,7 @@ Watch the Demo
 
 Screen 2 Stream is a full-stack web application designed to revolutionize the way anime fans find information and streaming links for their favorite scenes. By simply uploading a screenshot from an anime, users can quickly access detailed information about the series and find the best streaming links available. 🚀
 
-## Tech Stack 🛠️
+## Tech stack 🛠️
 
 
 ### Frontend
